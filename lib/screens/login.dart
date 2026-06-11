@@ -9,7 +9,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  bool isChecked = false;
+  bool isPasswordHidden = true;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
 
                 Center(
                   child: Text(
-                    'Sign Up',
+                    'Sign In',
                     style: TextStyle(
                       color: AppColors.primary,
                       fontSize: 40,
@@ -38,10 +38,7 @@ class _LoginState extends State<Login> {
 
                 Text(
                   'It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum.',
-                  style: TextStyle(
-                    color: AppColors.textColor,
-                    fontSize: 15,
-                  ),
+                  style: TextStyle(color: AppColors.textColor, fontSize: 15),
                   textAlign: TextAlign.center,
                 ),
 
@@ -118,27 +115,20 @@ class _LoginState extends State<Login> {
 
                 const SizedBox(height: 20),
 
-                // INPUTS
-                TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: AppColors.primary.withOpacity(0.05),
-                    hintText: 'Name',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 15),
+              
 
                 TextField(
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: AppColors.primary.withOpacity(0.05),
+                    fillColor: const Color(0xffF5F9FE),
                     hintText: 'Email / Phone Number',
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      borderSide: BorderSide(color: AppColors.primary)
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),
+                      borderSide: BorderSide.none
                     ),
                   ),
                 ),
@@ -146,65 +136,40 @@ class _LoginState extends State<Login> {
                 const SizedBox(height: 15),
 
                 TextField(
-                  obscureText: true,
+                  obscureText: isPasswordHidden,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: AppColors.primary.withOpacity(0.05),
+                    fillColor: const Color(0xffF5F9FE),
                     hintText: 'Password',
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius:  BorderRadius.circular(14),
+                      borderSide: BorderSide(color: AppColors.primary)
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),
+                      borderSide: BorderSide.none,
                     ),
-                    suffixIcon: const Icon(Icons.remove_red_eye_outlined),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isPasswordHidden = !isPasswordHidden;
+                        });
+                      },
+                      icon: Icon(
+                        isPasswordHidden
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                      ),
+                    ),
                   ),
                 ),
 
                 const SizedBox(height: 15),
 
                 // CHECKBOX
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                 
-                  children: [
-                    Checkbox(
-                      value: isChecked,
-                      onChanged: (value) {
-                        setState(() {
-                          isChecked = value ?? false;
-                        });
-                      },
-                    ),
-                    Expanded(
-                      child: RichText(
-                        text: TextSpan(
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                          ),
-                          children: [
-                            const TextSpan(
-                              text: "I agree to the ",
-                            ),
-                            TextSpan(
-                              text: "Terms of Service",
-                              style: TextStyle(
-                                color: AppColors.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const TextSpan(text: " and "),
-                            TextSpan(
-                              text: "Privacy Policy",
-                              style: TextStyle(
-                                color: AppColors.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+
+                  Text('Forget Password?', style: TextStyle(color: AppColors.textColor), textAlign: TextAlign.end,),
+              
 
                 const SizedBox(height: 20),
 
@@ -221,7 +186,7 @@ class _LoginState extends State<Login> {
                     ),
                     onPressed: () {},
                     child: const Text(
-                      'Create Account',
+                      'Log in',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -230,23 +195,21 @@ class _LoginState extends State<Login> {
                 const SizedBox(height: 20),
 
                 // LOGIN LINK
-                
-                 RichText(
-                    text: TextSpan(
-                      style: const TextStyle(color: Colors.black),
-                      children: [
-                        const TextSpan(text: "Do you have an account? "),
-                        TextSpan(
-                          text: "Sign in",
-                          style: TextStyle(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
+                RichText(
+                  text: TextSpan(
+                    style: const TextStyle(color: Colors.black),
+                    children: [
+                      const TextSpan(text: "Don't have account?"),
+                      TextSpan(
+                        text: "Sign up",
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                
+                ),
 
                 const SizedBox(height: 20),
               ],
